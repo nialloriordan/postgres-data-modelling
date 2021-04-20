@@ -20,10 +20,10 @@ The purpose of this repo is to create a postgres database to enable data modelli
 
 To create the postgres schema run the following processes in order from your terminal in the root directory
 
-1. Create the postgres tables from the `create_tables` python script:   
+1. Create the postgres tables with the `create_tables` python script:   
   `python create_tables.py`
 
-2. To run the data modelling pipeline run the `etl` python script:  
+2. Run the data modelling pipeline with the `etl` python script:  
   `python etl.py`
 
 </details>
