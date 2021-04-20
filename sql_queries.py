@@ -126,6 +126,7 @@ INSERT INTO time(
     year,
     weekday
 ) Values(%s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT DO NOTHING
 """
 
 # FIND SONGS
