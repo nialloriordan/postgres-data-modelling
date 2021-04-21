@@ -13,6 +13,15 @@ from sql_queries import (
     song_select,
 )
 from typing import Callable
+from dotenv import load_dotenv
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+load_dotenv(dotenv_path=os.path.join(dir_path, ".env"))
+# Db connection details
+PG_HOST = os.getenv("POSTGRES_HOST", "127.0.0.1")
+PG_USER = os.getenv("POSTGRES_USER", "student")
+PG_PASSWORD = os.getenv("POSTGRES_PASSWORD", "student")
 
 
 def process_song_file(cur: psycopg2.extensions.cursor, filepath: str):
@@ -158,7 +167,7 @@ def process_data(
 
 def main():
     conn = psycopg2.connect(
-        "host=127.0.0.1 dbname=sparkifydb user=student password=student"
+        f"host={PG_HOST} dbname=studentdb user={PG_USER} password={PG_PASSWORD}"
     )
     cur = conn.cursor()
 
