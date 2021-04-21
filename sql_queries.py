@@ -13,8 +13,8 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 songplay_table_create = """
 CREATE TABLE IF NOT EXISTS songplays(
     songplay_id SERIAL PRIMARY KEY,
-    start_time TIMESTAMP,
-    user_id INTEGER,
+    start_time TIMESTAMP NOT NULL,
+    user_id INTEGER NOT NULL,
     level VARCHAR,
     song_id VARCHAR,
     artist_id VARCHAR,
@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS songplays(
 user_table_create = """
 CREATE TABLE IF NOT EXISTS users(
     user_id integer PRIMARY KEY,
-    first_name VARCHAR,
-    last_name VARCHAR,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
     gender CHAR(1),
     level VARCHAR
 )
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS users(
 song_table_create = """
 CREATE TABLE IF NOT EXISTS songs(
     song_id VARCHAR PRIMARY KEY,
-    title VARCHAR,
-    artist_id VARCHAR,
+    title VARCHAR NOT NULL,
+    artist_id VARCHAR NOT NULL,
     year INTEGER,
     duration NUMERIC
 )
@@ -79,6 +79,7 @@ INSERT INTO songplays(
     location,
     user_agent
 ) Values(%s, %s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT DO NOTHING
 """
 
 user_table_insert = """
@@ -126,7 +127,7 @@ INSERT INTO time(
     year,
     weekday
 ) Values(%s, %s, %s, %s, %s, %s, %s)
-ON CONFLICT DO NOTHING
+ON CONFLICT(start_time) DO NOTHING
 """
 
 # FIND SONGS

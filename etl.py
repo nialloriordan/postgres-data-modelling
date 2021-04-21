@@ -12,13 +12,14 @@ from sql_queries import (
     time_table_insert,
     song_select,
 )
+from typing import Callable
 
 
-def process_song_file(cur: psycopg2.extensions.connection, filepath: str):
+def process_song_file(cur: psycopg2.extensions.cursor, filepath: str):
     """Process individual song file and insert into database
 
     Args:
-        cur (psycopg2.extensions.connection): postgres connection
+        cur (psycopg2.extensions.cursor): postgres cursor
         filepath (str): song filepath
     """
 
@@ -46,11 +47,11 @@ def process_song_file(cur: psycopg2.extensions.connection, filepath: str):
     cur.execute(artist_table_insert, artist_data)
 
 
-def process_log_file(cur: psycopg2.extensions.connection, filepath: str):
+def process_log_file(cur: psycopg2.extensions.cursor, filepath: str):
     """Process log file and insert into database
 
     Args:
-        cur (psycopg2.extensions.connection): postgres connection
+        cur (psycopg2.extensions.cursor): postgres cursor
         filepath (str): log filepath
     """
     # open log file
@@ -115,7 +116,25 @@ def process_log_file(cur: psycopg2.extensions.connection, filepath: str):
         cur.execute(songplay_table_insert, songplay_data)
 
 
-def process_data(cur, conn, filepath, func):
+def process_data(
+    cur: psycopg2.extensions.cursor,
+    conn: psycopg2.extensions.connection,
+    filepath: str,
+    func: Callable,
+):
+    """Process all data within a given directory
+    with a provided function
+
+    Args:
+        cur (psycopg2.extensions.cursor): postgres cursor
+        conn (psycopg2.extensions.connection): postgres connection
+        filepath (str): filepath to data directory to process
+        func (Callable): function to call to either porcess log files
+            or user data
+
+    Raises:
+        Exception: raises an exception if an error occurs when processing the data
+    """
     # get all files matching extension from directory
     all_files = []
     for root, _, files in os.walk(filepath):
