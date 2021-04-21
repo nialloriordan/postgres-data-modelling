@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  postgres:
+    image: "postgres:${POSTGRES_VERSION:-11-alpine}"
+    restart: unless-stopped
+    container_name: sparkify_postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-student}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-student}
+      - POSTGRES_DB=studentdb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    
