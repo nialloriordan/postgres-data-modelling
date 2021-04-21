@@ -26,7 +26,7 @@ The purpose of this repo is to create a postgres database to enable data modelli
 Install requirements from `requirements.txt`:
   `pip install -r requirements.txt`
 
-**Optioon 2:**
+**Option 2:**
 
 Create a conda environment
 
