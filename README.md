@@ -3,7 +3,10 @@
 - [Data Modelling with Postgres](#data-modelling-with-postgres)
   - [Summary](#summary)
   - [Quick Start](#quick-start)
-    - [Running python Scripts](#running-python-scripts)
+    - [Install requirements](#install-requirements)
+    - [Configure your environment variables](#configure-your-environment-variables)
+    - [Run the postgres container](#run-the-postgres-container)
+    - [Run python scripts](#run-python-scripts)
   - [Structure](#structure)
   - [Database Schema](#database-schema)
   - [Sample Queries](#sample-queries)
@@ -16,7 +19,42 @@ The purpose of this repo is to create a postgres database to enable data modelli
 <details open>
     <summary> Show/Hide Details</summary>
 
-### Running python Scripts
+### Install requirements
+
+**Option 1:**
+
+Install requirements from `requirements.txt`:
+  `pip install -r requirements.txt`
+
+**Optioon 2:**
+
+Create a conda environment
+
+1. create environment: `conda env create -f env.yml`
+2. activat conda environemnt: `conda activate postgres-data-modelling`
+
+### Configure your environment variables
+
+Set up your .env file in the home folder of this repo i.e. in the same folder as the README.md and ensure it contains the following variables:
+
+```bash
+POSTGRES_PORT=5432
+POSTGRES_USER=student
+POSTGRES_PASSWORD=student
+POSTGRES_VERSION=11-alpine
+POSTGRES_HOST=127.0.0.1
+```
+
+### Run the postgres container
+
+```
+docker-compose up
+```
+
+Note:
+- optionally run in detached mode by passing the `-d` flag to the above command
+
+### Run python scripts
 
 To create the postgres schema run the following processes in order from your terminal in the root directory
 
